@@ -13,7 +13,6 @@
   background-color: transparent;
   transition: transform 0.2s ease-out;
 }
-/* REMOVED direct hover effects */
 
 /* Shared Wrapper Styles - BASE STATE */
 .hero, .about-card-wrapper, .portfolio-wrapper {
@@ -331,7 +330,7 @@ header.site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100
   font-style: normal; /* Start non-italic (will inherit if inside <i>) */
   transition: transform 0.2s ease-out; /* Transition for scale */
   margin-left: 0.15em;  /* Spacing like other highlights */
-  margin-right: 0.15em; /* Spacing like other highlights */
+  margin-right: 0.25em; /* Spacing like other highlights */
 }
 
 #about-content > hr.section-divider {
@@ -342,7 +341,7 @@ header.site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100
 
 /* --- PORTFOLIO PAGE --- */
 #portfolio-intro { text-align: center; color: var(--text-primary); max-width: 700px; margin-left: auto; margin-right: auto; margin-top: 1rem; margin-bottom: 0; }
-/* Added rule for portfolio subheading */
+
 .portfolio-subheading {
   font-size: 1.2rem; /* Adjust size as needed */
   color: var(--text-primary); /* Lighter grey color */
@@ -372,8 +371,6 @@ a.cta-button, button.cta-button {
   font-family: inherit; /* Keep */
   font-size: 1.5rem; /* Copied from subnav */
   line-height: 1.4; /* Keep */
-  /* backdrop-filter: none; */ /* Removed */
-  /* box-shadow: none; */ /* Removed */
   transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out;
   cursor: pointer; /* Keep */
   text-align: center; /* Keep */
@@ -386,7 +383,6 @@ a.cta-button:hover, button.cta-button:hover {
    color: var(--base-bg); /* Copied from subnav hover */
    border-color: var(--accent-primary); /* Copied from subnav hover */
    transform: scale(1.05); /* Copied from subnav hover */
-   /* box-shadow: none; */ /* Removed */
    text-decoration: none !important; /* Keep */
 }
 
@@ -526,9 +522,9 @@ a.cta-button:hover, button.cta-button:hover {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background-image: linear-gradient(160deg, var(--module-bg) 0%, var(--page-gradient-cinnamon) 325%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border-neutral);
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-shadow);
@@ -799,10 +795,9 @@ a.cta-button:hover, button.cta-button:hover {
     .contact-page-wrapper { padding-top: 0; }
     .contact-main { padding-top: 2rem; }
     .contact-page-wrapper .card-column { margin: 0 0.5rem; max-width: 95%; flex-basis: auto !important; }
-    /* .contact-column h2 { font-size: clamp(1rem, 3.5vw, 1.2rem); } Removed old h2 */
     .contact-headline { font-size: clamp(1.2rem, 3.8vw, 1.5rem); } /* Adjust new headline size */
     .contact-body p { font-size: 1rem; } /* Adjust new body size */
-    /* .contact-pitch-subtext { margin-top: 1em; } Removed old */
+    
 
     #portfolio-intro { margin-top: 0.5rem; margin-bottom: 0; }
     #portfolio-intro p { font-size: 1rem; }
@@ -887,8 +882,8 @@ a.cta-button:hover, button.cta-button:hover {
   font-weight: 700;
   color: var(--accent-primary); /* Yellow */
   transition: transform 0.2s ease-out;
-  margin-left: 0.15em;
-  margin-right: 0.15em
+  margin-left: 0.18em;
+  margin-right: 0.18em
 }
 
 
@@ -937,8 +932,8 @@ a.cta-button:hover, button.cta-button:hover {
     font-weight: 700;
 	color: var(--accent-primary); /* Yellow */
 	transition: transform 0.2 ease-out;
-	margin-left: 0.15em;
-	margin-right: 0.15em;
+	margin-left: 0.25em;
+	margin-right: 0.25em;
 }
 
 /* --- START Contact Card & Title Styles --- */
