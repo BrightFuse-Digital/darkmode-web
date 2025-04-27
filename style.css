@@ -377,6 +377,7 @@ a.cta-button, button.cta-button {
   cursor: pointer; /* Keep */
   text-align: center; /* Keep */
   margin: 0.5em; /* Keep Default Base Margin */
+  white-space: nowrap;
 }
 
 /* Hover state for the button (Updated to match portfolio subnav hover) */
