@@ -87,7 +87,7 @@
     padding-bottom: 8px;
     display: inline-block;
     text-align: center;
-    margin-bottom: 3.5rem !important;
+    margin-bottom: 5rem;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -161,21 +161,23 @@
 html { box-sizing: border-box; scroll-behavior: smooth; }
 *, *:before, *:after { box-sizing: inherit; margin: 0; padding: 0; }
 
-/* BODY BACKGROUND GRADIENT */
+/* BODY BACKGROUND - Dark Gradient (No Red) */
 body {
+  /* REMOVE solid background-color */
+  /* background-color: var(--base-bg); */
+
+  /* ADD new gradient using only dark colors */
   background-image: linear-gradient(to bottom right,
-     var(--page-gradient-cinnamon) 0%,
-     var(--module-bg) 25%,
-     var(--page-gradient-dark) 50%,
-     var(--module-bg) 75%,
-     var(--page-gradient-cinnamon) 100%
+     var(--base-bg) 0%,      /* Start with inky black */
+     var(--module-bg) 50%,   /* Transition to dark grey/blue */
+     var(--base-bg) 100%     /* End with inky black */
   );
-  background-attachment: fixed;
+  background-attachment: fixed; /* Keep gradient fixed during scroll */
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
-  padding-top: 60px;
+  padding-top: 60px; /* Or 80px depending on media query */
 }
 
 /* Helper Classes */
@@ -390,7 +392,7 @@ a.cta-button:hover, button.cta-button:hover {
 .cta-button-container {
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem; /* Reduced value */
+  margin-top: 1rem; /* Reduced value */
 }
 
 /* Target the button *inside* the container to override its default margin */
@@ -428,7 +430,7 @@ a.cta-button:hover, button.cta-button:hover {
 
 /* Add more space above the main contact card */
 .contact-main .contact-column {
-    margin-top: 6rem;
+    margin-top: 5.5rem;
 }
 
 /* --- Start Portfolio Title Fixes --- */
@@ -440,7 +442,7 @@ a.cta-button:hover, button.cta-button:hover {
 
 /* Set portfolio titles to ACCENT color and add margin-top */
 .portfolio-section-title {
-     color: var(--accent-primary);
+     color: var(--text-primary);
      margin-top: 2rem;
 }
 /* --- End Portfolio Title Fixes --- */
@@ -603,7 +605,7 @@ a.cta-button:hover, button.cta-button:hover {
     transform: translateY(-5px) scale(1.01);
 }
 .card-inner-content { padding: var(--card-padding); width: 100%; height: 100%; display: flex; flex-direction: column; transition: transform var(--card-hover-duration) ease-out; }
-.card-column:not(.contact-column) h2 { font-size: clamp(1.1rem, 2.5vw, 1.3rem); font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-neutral); padding-bottom: 0.75rem; cursor: default; position: relative; flex-shrink: 0; }
+.card-column:not(.contact-column) h2 { font-size: clamp(1.1rem, 2.5vw, 1.3rem); font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-neutral); padding-bottom: 0.75rem; cursor: default; position: relative; flex-shrink: 0; }
 .card-column:not(.contact-column) h2 span { display: inline-block; position: relative; color: var(--text-primary); transition: transform var(--title-hover-duration) ease-out, color var(--title-hover-duration) ease-out; }
 .card-column:not(.contact-column) h2 span i, .card-column:not(.contact-column) h2 span em { font-style: italic; }
 .card-column:not(.contact-column) h2 span::after { content: ''; position: absolute; width: 100%; height: 2px; background-color: var(--accent-primary); bottom: -4px; left: 0; transform: scaleX(0); transform-origin: left; transition: transform var(--title-underline-duration) ease-out; }
@@ -613,7 +615,7 @@ a.cta-button:hover, button.cta-button:hover {
 
 /* Contact Card Styles (Homepage/Contact Page) */
 .contact-column { justify-content: space-between; }
-.contact-column .cta-container { text-align: center; margin-top: 3rem; flex-shrink: 0; padding-bottom: 0; padding-top: 1rem; }
+.contact-column .cta-container { text-align: center; margin-top: .5rem; flex-shrink: 0; padding-bottom: 0; padding-top: 1rem; }
 
 
 /* --- MODAL STYLES --- */
@@ -839,15 +841,16 @@ a.cta-button:hover, button.cta-button:hover {
 /* Ensure paragraphs themselves don't have excessive left padding if added elsewhere */
 .hero-content-block .strategy-paragraph {
     padding-left: 0; /* Reset if needed */
-    /* ... other existing styles ... */
+    
 }
 .hero-content-block .intro-paragraphs {
-    padding-left: 0; /* Reset if needed */
-     /* ... other existing styles ... */
+    padding-left: 0; 
+	margin-top: 3rem/* Reset if needed */
+     
 }
  .hero-content-block .final-lines {
     padding-left: 0; /* Reset if needed */
-     /* ... other existing styles ... */
+     
 }
 .hero-content-block {
   max-width: 480px; /* Adjust as needed */
@@ -897,8 +900,8 @@ a.cta-button:hover, button.cta-button:hover {
 .hero-content-block .strategy-paragraph {
   font-weight: 400;
   font-size: 1.1rem;
-  margin-top: 2rem;
-  margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 3rem;
   line-height: 1.6;
   color: var(--text-primary);
 }
@@ -906,14 +909,14 @@ a.cta-button:hover, button.cta-button:hover {
 .hero-content-block .intro-paragraphs p {
   font-size: 1rem;
   line-height: 1.7;
-  margin-bottom: 1.2em;
+  margin-bottom: 1.5em;
   color: var(--text-primary);
 }
 
 /* Styling for the final standout lines */
 .hero-content-block .final-lines {
-  margin-top: 3.5rem;
-  margin-bottom: 2.5rem;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
   padding-left: 0;
   max-width: 100%;
 }
@@ -923,7 +926,7 @@ a.cta-button:hover, button.cta-button:hover {
   color: var(--text-primary);
   font-size: 1.1rem;
   line-height: 1.5;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.5em;
 }
 
 /* Style for final words in hero */
@@ -1000,7 +1003,7 @@ a.cta-button:hover, button.cta-button:hover {
     font-weight: 700;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     padding-top: 8px;
     padding-bottom: 8px;
     position: relative;
@@ -1067,7 +1070,7 @@ a.cta-button:hover, button.cta-button:hover {
 /* Secondary Headlines */
 .contact-headline-block {
   margin-top: 0; /* Reset from previous */
-  margin-bottom: 1.5rem; /* Space after headlines */
+  margin-bottom: .5rem; /* Space after headlines */
   text-align: center;
 }
 
@@ -1081,15 +1084,15 @@ a.cta-button:hover, button.cta-button:hover {
 
 /* Contact Body Text & Highlights */
 .contact-body {
-  margin-top: 2.5rem;   /* Breathing room */
-  margin-bottom: 3rem;  /* Breathing room */
+  margin-top: .5rem;   /* Breathing room */
+  margin-bottom: .5rem;  /* Breathing room */
   text-align: center;
 }
 
 .contact-body p {
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 2em; /* Breathing room */
+  margin-bottom: .5em; /* Breathing room */
   color: var(--text-primary);
 }
 
@@ -1133,9 +1136,6 @@ a.cta-button:hover, button.cta-button:hover {
     margin-right: 0.4em; /* Horizontal breathing room */
 }
 
-/* --- END Contact Card & Title Styles --- */
-
-/* Keep existing card pop effect */
 .contact-column:hover {
     box-shadow: var(--card-shadow-hover);
     transform: translateY(-5px) scale(1.01); /* Existing pop effect */
@@ -1144,7 +1144,7 @@ a.cta-button:hover, button.cta-button:hover {
 /* Adjustments for existing contact elements if needed */
 .contact-column#contact-card .contact-headline-block {
     margin-top: 0; /* Ensure no extra top margin if title is added */
-    margin-bottom: 1.5rem; /* Slightly reduce space after headlines */
+    margin-bottom: .5rem; /* Slightly reduce space after headlines */
 }
 
 .contact-headline-block {
@@ -1161,8 +1161,8 @@ a.cta-button:hover, button.cta-button:hover {
 }
 
 .contact-body {
-  margin-top: 1.5rem; /* Reduced space before body */
-  margin-bottom: 2rem; /* Space after body */
+  margin-top: .5rem; /* Reduced space before body */
+  margin-bottom: .5rem; /* Space after body */
   text-align: center;
 }
 
@@ -1234,7 +1234,7 @@ a.cta-button:hover, button.cta-button:hover {
 .portfolio-subnav {
   width: 100%;
   max-width: 1600px;
-  margin: 2rem auto 1rem auto; /* Keep vertical spacing */
+  margin: 5rem auto 1rem auto; /* Keep vertical spacing */
   padding: 0.5rem 0;
   border: none;
   background: none;
