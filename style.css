@@ -21,7 +21,7 @@
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
-    max-width: calc(1100px + 2rem);
+    max-width: 1600px;;
     position: relative;
     background-color: rgba(24, 26, 35, 0);
     backdrop-filter: blur(10px);
@@ -40,19 +40,18 @@
     transform: translateY(0);
 }
 
-/* Shared Wrapper Styles - HOVER STATE (Restore card pop) */
+/* Keep this hover for the overall card pop effect */
 .hero:hover, .about-card-wrapper:hover, .portfolio-wrapper:hover {
     box-shadow: var(--card-shadow-hover);
-    transform: translateY(-5px) scale(1.002); /* Restore card pop */
+    transform: translateY(-5px) scale(1.002);
 }
 
 /* Base state for OTHER elements that pop */
-.hero-content .hero-highlight-word,
-.hero-content .hero-both,
+.hero-content .hero-highlight-word, /* Kept for about page potentially */
+.hero-content .hero-both, /* Kept for about page potentially */
 .portfolio-headline .headline-bad,
-.contact-pitch-highlight,
-.contact-pitch-subtext .contact-hard-word b
-
+.contact-pitch-highlight, /* Old contact style, remove if not needed */
+.contact-pitch-subtext .contact-hard-word b /* Old contact style, remove if not needed */
  {
     display: inline-block;
     transition: transform 0.2s ease-out;
@@ -62,17 +61,21 @@
 
 
 /* Combined Hover: Trigger CHILD element pop when PARENT card/wrapper is hovered */
+/* Keep these for other pop effects if desired */
 .about-card-wrapper:hover .hover-highlight-word,
-.hero:hover .hero-content .hero-highlight-word,
-.hero:hover .hero-content .hero-both,
+.about-card-wrapper:hover .about-highlight,
+.hero:hover .hero-hover-highlight, /* Correct class for homepage */
+.hero:hover .final-word-highlight, /* Correct class for homepage */
+.portfolio-wrapper:hover .about-highlight,
 .portfolio-wrapper:hover .hover-highlight-word,
 .portfolio-wrapper:hover .portfolio-headline .headline-bad,
-.contact-column:hover .contact-pitch-highlight,
-.contact-column:hover .contact-hard-word b
+.contact-column:hover .contact-highlight-yellow, /* Added for new contact hover */
+.contact-column:hover .contact-highlight-both, /* Added for new contact hover */
+.contact-column:hover .contact-highlight-main /* Added for new contact hover */
 {
-    transform: scale(1.05);
+    transform: scale(1.1); /* Use scale for pop */
+	font-style: italic;
 }
-
 
 /* --- Other Styles (Ensure consistency) --- */
 
@@ -149,7 +152,7 @@
   --visibility-slide-duration: 0.6s;
   --title-hover-duration: 0.3s;
   --title-underline-duration: 0.35s;
-  --hero-word-pop-duration: 0.2s; /* Controls speed of other pop effects */
+  --hero-word-pop-duration: 0.2s;
   --contact-word-pop-duration: 0.2s;
   --logo-line-duration: 0.4s;
   --headline-word-pop-duration: 0.2s;
@@ -159,99 +162,254 @@
 html { box-sizing: border-box; scroll-behavior: smooth; }
 *, *:before, *:after { box-sizing: inherit; margin: 0; padding: 0; }
 
-/* BODY BACKGROUND GRADIENT - Using Option 4b (Angled with Module BG transition) */
+/* BODY BACKGROUND GRADIENT */
 body {
-  /* Replace the existing background-image line with this updated version: */
-  background-image: linear-gradient(to bottom right, /* Angled direction */
-     var(--page-gradient-cinnamon) 0%,       /* Start cinnamon */
-     var(--module-bg) 25%,       /* Transition to module bg */
-     var(--page-gradient-dark) 50%,   /* Transition to main dark bg */
-     var(--module-bg) 75%,       /* Transition back to module bg */
-     var(--page-gradient-cinnamon) 100%      /* End cinnamon */
+  background-image: linear-gradient(to bottom right,
+     var(--page-gradient-cinnamon) 0%,
+     var(--module-bg) 25%,
+     var(--page-gradient-dark) 50%,
+     var(--module-bg) 75%,
+     var(--page-gradient-cinnamon) 100%
   );
   background-attachment: fixed;
-  /* Keep other body styles */
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
-  padding-top: 60px; /* Adjusted for fixed header */
+  padding-top: 60px;
 }
 
 /* Helper Classes */
 .text-center { text-align: center; }
 .accent-text { color: var(--accent-primary); font-style: italic; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+.container { max-width: 1600px; margin: 0 auto; padding: 0 1rem; }
 
 /* Section Base Styles */
 section, main { padding: 0; position: relative; }
 
 footer { margin-top: 3rem; padding: 3rem 1rem; border-top: 1px solid var(--border-neutral); text-align: center; color: var(--text-secondary); font-size: 0.9rem; background-color: transparent; backdrop-filter: blur(3px); }
 .footer-highlight { color: var(--accent-primary); font-style: italic; }
-hr.section-divider { border: none; height: 1px; background-image: linear-gradient(to right, transparent, var(--border-neutral), transparent); max-width: 800px; /* Keep max-width */ margin-left: auto; margin-right: auto; /* Keep centered */ }
+
+/* Updated Divider Rule */
+hr.section-divider {
+    border: none;
+    border-top: 1px solid rgba(240, 240, 245, 0.5); /* Use border-top, increased opacity */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.5rem; /* Default margin */
+    margin-bottom: 2.5rem; /* Default margin */
+    width: 100%; /* Allow max-width to constrain */
+    overflow: visible;
+    height: 0; /* Override default height */
+    background-image: none; /* Remove background image */
+}
+
+/* Specific spacing for the divider inside the contact card */
+.contact-column .section-divider {
+    margin-top: 1.5rem;    /* Reduced */
+    margin-bottom: 1.5rem; /* Reduced */
+    max-width: 80%;
+}
+/* --- End Divider Fix --- */
+
 hr.card-divider { border: none; height: 1px; background-image: linear-gradient(to right, transparent, var(--border-neutral), transparent); margin: 1.5rem auto; max-width: 80%; }
 
 
 /* --- HEADER / NAVIGATION --- */
 header.site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background-color: rgba(15, 17, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-neutral); padding: 0.5rem 0; }
-.header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+.header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1600px; margin: 0 auto; padding: 0 1rem; }
 .site-logo a { font-family: 'Heebo', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-primary); text-decoration: none; }
 .site-logo a span { color: var(--text-secondary); font-weight: 300; }
 .main-navigation ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
-.main-navigation a { color: var(--text-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.2s ease-out; position: relative; padding-bottom: 0.2em; }
-.main-navigation a:hover, .main-navigation a.active { color: var(--accent-primary); }
-.main-navigation a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--accent-primary); transform: scaleX(1); }
+.main-navigation a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border-radius: 15px;
+  background-color: transparent;
+  transition: color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.main-navigation a:hover {
+  color: var(--base-bg) !important;
+  background-color: var(--accent-primary);
+}
+
+/* Remove underline when active link is hovered */
+ .main-navigation a.active:hover::after {
+     transform: scaleX(0);
+ }
+
+.main-navigation a.active {
+  color: var(--base-bg) !important;
+  background-color: var(--accent-primary);
+}
+
+/* Adjusted underline for the active state */
+.main-navigation a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background-color: var(--base-bg);
+    transform: scaleX(1);
+    transition: transform 0.2s ease-out;
+}
+
 
 /* --- HERO SECTION --- */
-.hero .container { background-color: transparent; display: flex; flex-wrap: wrap; align-items: center; max-width: 1100px; position: relative; z-index: 1; padding: 0; justify-content: center; flex-direction: column; }
-.hero-svg-logo { margin-bottom: 2rem; width: auto; text-align: center; display: inline-block; position: relative; padding: 5px 0; max-width: 440px; margin-left: auto; margin-right: auto; }
-.hero-svg-logo svg { display: block; max-width: 100%; height: auto; }
-.hero-svg-logo::after, .hero-svg-logo::before { content: ''; position: absolute; width: 100%; height: 2px; background: var(--accent-primary); left: 0; transform: scaleX(0); transition: transform var(--logo-line-duration) ease-out; }
-.hero-svg-logo::before { top: 0; transform-origin: left; }
-.hero-svg-logo::after { bottom: 0; transform-origin: right; }
+.hero .container {
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1600px;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  flex-direction: column;
+  }
+.hero-svg-logo {
+  margin-bottom: 3.5rem;
+  width: auto;
+  display: block;
+  position: relative;
+  padding: 5px 0;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-self: center;
+  }
+
+
+.hero-svg-logo svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.hero-svg-logo::after, .hero-svg-logo::before {
+  content: '';
+  position: absolute;
+  width: 90%; /* ADJUST THIS VALUE */
+  height: 2px;
+  background: var(--accent-primary);
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+  transition: transform var(--logo-line-duration) ease-out;
+}
+.hero-svg-logo::before {
+  top: 0;
+  transform-origin: left center;
+}
+.hero-svg-logo::after {
+  bottom: 0;
+  transform-origin: right center;
+}
+
 .hero:hover .hero-svg-logo::before,
-.hero:hover .hero-svg-logo::after { transform: scaleX(1); }
-.hero-content { flex-grow: 1; max-width: 650px; text-align: center; width: 100%; }
-.hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.25; margin-bottom: 1.5rem; letter-spacing: -1px; color: var(--text-primary); }
-.hero h1 .highlight {}
-.hero h1 .hero-i-do { font-style: normal; color: var(--text-primary); }
-.hero h1 .hero-both { font-style: italic; color: var(--accent-primary); }
-.hero p.hero-sub-bold { font-size: clamp(1.1rem, 2.8vw, 1.25rem); color: var(--text-primary); font-weight: 600; margin-bottom: 1rem; line-height: 1.6; margin-left: auto; margin-right: auto; max-width: 550px; }
-.hero p.hero-sub-bold .hero-highlight-word { color: var(--accent-primary); }
-.hero .cta-button { margin-top: 1.5rem; }
+.hero:hover .hero-svg-logo::after {
+  transform: scaleX(1);
+}
 
 /* --- ABOUT PAGE --- */
 .about-card-content h2 { margin-top: 3em; margin-bottom: 1.5em; font-size: 1.6rem; color: var(--accent-primary); text-align: center; display: inline-block; position: relative; padding-top: 8px; padding-bottom: 6px; }
-.about-card-content p { margin-bottom: 1.2em; line-height: 1.7; max-width: 700px; margin-left: auto; margin-right: auto; text-align: center; }
+.about-card-content p { margin-bottom: 1.2em; line-height: 1.7; max-width: 700px; margin-left: auto; margin-right: auto; text-align: left; }
 .about-card-content ul { list-style: disc; padding-left: 1.5em; max-width: 700px; margin-left: auto; margin-right: auto; margin-bottom: 1.2em; text-align: left; }
 .about-card-content li { margin-bottom: 0.5em; }
 .about-card-content p.standout-line { font-weight: 600; color: var(--text-primary); text-align: left; margin: 0.5em auto; max-width: 700px; font-size: 1.1rem; line-height: 1.4; }
 .about-card-content .final-cta { margin-top: 3em; text-align: center; }
-
-/* Add margin ABOVE dividers within the main about section */
-#about-content > hr.section-divider {
-    margin-top: 3rem; /* START HERE - Adjust value as needed */
-    margin-bottom: 2.5rem; /* Add default bottom margin back if needed */
+.about-highlight {
+  display: inline-block;
+  color: var(--accent-primary); /* Default yellow */
+  font-weight: 700; /* Make bold */
+  font-style: normal; /* Start non-italic (will inherit if inside <i>) */
+  transition: transform 0.2s ease-out; /* Transition for scale */
+  margin-left: 0.15em;  /* Spacing like other highlights */
+  margin-right: 0.15em; /* Spacing like other highlights */
 }
 
+#about-content > hr.section-divider {
+    margin-top: 4rem;
+    margin-bottom: 2.5rem;
+}
+
+
 /* --- PORTFOLIO PAGE --- */
-#portfolio-intro { text-align: center; color: var(--text-primary); max-width: 700px; margin-left: auto; margin-right: auto; margin-top: 1rem; margin-bottom: 0; /* Reduced bottom margin */ }
-#portfolio-intro p { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; line-height: 1.4; }
-#portfolio-intro p:last-of-type { margin-bottom: 0; }
+#portfolio-intro { text-align: center; color: var(--text-primary); max-width: 700px; margin-left: auto; margin-right: auto; margin-top: 1rem; margin-bottom: 0; }
+/* Added rule for portfolio subheading */
+.portfolio-subheading {
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: var(--text-primary); /* Lighter grey color */
+  font-weight: 500; /* Normal weight */
+  margin-top: 1rem; /* Space below main headline */
+  margin-bottom: 2.5; /* Remove default paragraph bottom margin */
+  max-width: 1600px; /* Limit width */
+  margin-left: auto; /* Center */
+  margin-right: auto; /* Center */
+  line-height: 1.5;
+}
 
 
-/* --- CTA Button Styling --- */
-a.cta-button, button.cta-button { display: inline-block; position: relative; padding: 0.7rem 1.4rem; background-color: rgba(24, 26, 35, 0.6); color: var(--accent-primary) !important; border-width: var(--card-border-width); border-style: solid; border-color: var(--card-border-color-light) var(--card-border-color-dark) var(--card-border-color-dark) var(--card-border-color-light); border-radius: 25px; text-decoration: none !important; font-weight: 600; font-family: inherit; font-size: 0.95rem; line-height: 1.4; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.3), 0 5px 15px var(--shadow-color-low); transition: all var(--card-hover-duration) ease-out; cursor: pointer; text-align: center; margin: 0.5em; }
-a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51, 0.7); color: var(--accent-hover) !important; transform: scale(1.03); box-shadow: inset 0 0 6px 1px rgba(255,253,208, 0.1), var(--card-shadow-hover); text-decoration: none !important; }
+/* --- CTA Button Styling (Updated to match portfolio subnav) --- */
+a.cta-button, button.cta-button {
+  display: inline-block;
+  position: relative; /* Keep */
+  padding: 0.5rem 1rem; /* Copied from subnav */
+  background-color: rgba(255, 253, 208, 0.1); /* Copied from subnav */
+  color: var(--accent-primary); /* Copied from subnav */
+  border-width: var(--card-border-width); /* Copied from subnav */
+  border-style: solid; /* Copied from subnav */
+  border-color: var(--card-border-color-light) var(--card-border-color-dark) var(--card-border-color-dark) var(--card-border-color-light); /* Copied from subnav */
+  border-radius: 20px; /* Copied from subnav */
+  text-decoration: none !important; /* Keep */
+  font-weight: 600; /* Copied from subnav */
+  font-family: inherit; /* Keep */
+  font-size: 1.5rem; /* Copied from subnav */
+  line-height: 1.4; /* Keep */
+  /* backdrop-filter: none; */ /* Removed */
+  /* box-shadow: none; */ /* Removed */
+  transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out;
+  cursor: pointer; /* Keep */
+  text-align: center; /* Keep */
+  margin: 0.5em; /* Keep Default Base Margin */
+}
+
+/* Hover state for the button (Updated to match portfolio subnav hover) */
+a.cta-button:hover, button.cta-button:hover {
+   background-color: var(--accent-primary); /* Copied from subnav hover */
+   color: var(--base-bg); /* Copied from subnav hover */
+   border-color: var(--accent-primary); /* Copied from subnav hover */
+   transform: scale(1.05); /* Copied from subnav hover */
+   /* box-shadow: none; */ /* Removed */
+   text-decoration: none !important; /* Keep */
+}
+
+/* Container to center the button */
+.cta-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem; /* Reduced value */
+}
+
+/* Target the button *inside* the container to override its default margin */
+.cta-button-container > .cta-button {
+  margin: 0; /* Remove the button's own default margin */
+}
 
 /* --- HEADLINES & TITLES --- */
 /* Base styles for all titles/headlines */
 .about-card-content h1.about-main-title,
 .about-card-content h2,
 .portfolio-wrapper .portfolio-headline h2,
-.portfolio-section-title, /* Target portfolio category titles */
-.contact-column h2,
-.section-title-outside /* Kept for Core Services if used elsewhere */
+.portfolio-section-title,
+.contact-column h2, /* Removing contact H2 from base style */
+.section-title-outside
  {
     position: relative;
     display: block;
@@ -261,50 +419,58 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     padding-top: 8px;
     padding-bottom: 8px;
     text-align: center;
-    color: var(--text-primary); /* Default to white */
+	padding-left: 0.15em;
+    color: var(--text-primary);
     font-weight: 700;
-    font-size: 1.6rem; /* Default size */
-    /* Adjusted Margins for Titles */
-    margin-top: 0; /* Remove top margin, rely on divider or specific rules */
-    margin-bottom: 2.25rem; /* Space below title before grid/content */
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 2.25rem;
 }
 /* Specific size/margin overrides */
 .about-card-content h1.about-main-title { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--text-primary); margin-bottom: 2.5rem !important; margin-top: 0; }
-.portfolio-wrapper .portfolio-headline h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 1.5rem; /* Reduced space below main headline */ margin-top: 0; }
+.portfolio-wrapper .portfolio-headline h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 1.5rem; margin-top: 0; }
 
 /* Add more space above the main contact card */
 .contact-main .contact-column {
-    margin-top: 6rem; /* Adjust this value as needed (e.g., 5rem, 7rem) */
+    margin-top: 6rem;
 }
 
+/* --- Start Portfolio Title Fixes --- */
 /* Specific color overrides */
-.about-card-content h2, /* About page subheadings */
-.contact-column h2, /* Contact page title */
-.section-title-outside, /* "Core Services" title if used */
-.portfolio-section-title /* Portfolio category titles are yellow */
- {
-    color: var(--text-primary); /* Yellow */
+.about-card-content h2,
+.section-title-outside {
+    color: var(--text-primary);
 }
 
+/* Set portfolio titles to ACCENT color and add margin-top */
+.portfolio-section-title {
+     color: var(--accent-primary);
+     margin-top: 2rem;
+}
+/* --- End Portfolio Title Fixes --- */
 
-.contact-column h2 span { display: inline; position: static; }
-.contact-column h2 span::after { content: none; }
 
 /* Base ::before & ::after styles for double lines */
 .about-card-content h1.about-main-title::before, .about-card-content h1.about-main-title::after,
 .about-card-content h2::before, .about-card-content h2::after,
 .portfolio-wrapper .portfolio-headline h2::before, .portfolio-wrapper .portfolio-headline h2::after,
-.portfolio-section-title::before, .portfolio-section-title::after, /* Added for new titles */
-.contact-column h2::before, .contact-column h2::after,
+.portfolio-section-title::before, .portfolio-section-title::after,
 .section-title-outside::before, .section-title-outside::after
- { content: ''; position: absolute; width: 100%; height: 2px; background-color: var(--accent-primary); transform: scaleX(0); transition: transform var(--title-underline-duration) ease-out; }
+ {
+     content: '';
+     position: absolute;
+     width: 100%;
+     height: 2px;
+     background-color: var(--accent-primary); /* Ensure line color is set */
+     transform: scaleX(0);
+     transition: transform var(--title-underline-duration) ease-out;
+ }
 
 /* Top line position & animation */
 .about-card-content h1.about-main-title::before,
 .about-card-content h2::before,
 .portfolio-wrapper .portfolio-headline h2::before,
-.portfolio-section-title::before, /* Added */
-.contact-column h2::before,
+.portfolio-section-title::before,
 .section-title-outside::before
  { top: 0; left: 0; transform-origin: left; }
 
@@ -312,8 +478,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 .about-card-content h1.about-main-title::after,
 .about-card-content h2::after,
 .portfolio-wrapper .portfolio-headline h2::after,
-.portfolio-section-title::after, /* Added */
-.contact-column h2::after,
+.portfolio-section-title::after,
 .section-title-outside::after
 { bottom: 0; left: 0; transform-origin: right; }
 
@@ -321,18 +486,15 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 .about-card-wrapper:hover .about-main-title::before, .about-card-wrapper:hover .about-main-title::after,
 .about-card-wrapper:hover .about-card-content h2::before, .about-card-wrapper:hover .about-card-content h2::after,
 .portfolio-wrapper:hover .portfolio-headline h2::before, .portfolio-wrapper:hover .portfolio-headline h2::after,
-.portfolio-wrapper:hover .portfolio-section-title::before, .portfolio-wrapper:hover .portfolio-section-title::after, /* Added hover trigger */
-.contact-column:hover h2::before, .contact-column:hover h2::after,
+.portfolio-wrapper:hover .portfolio-section-title::before, .portfolio-wrapper:hover .portfolio-section-title::after,
 .portfolio-wrapper:hover .section-title-outside::before, .portfolio-wrapper:hover .section-title-outside::after { transform: scaleX(1); }
 
 
 /* Specific headline styling */
-.portfolio-headline h2 { color: var(--text-primary); } /* Portfolio main title is white */
-/* Ensure section titles don't inherit italics */
-.portfolio-section-title, /* Updated */
+.portfolio-headline h2 { color: var(--text-primary); }
 .section-title-outside { font-style: normal !important; }
 
-.portfolio-headline h2 .headline-bad { /* Ensure 'Bad' remains yellow/italic */
+.portfolio-headline h2 .headline-bad {
     font-style: italic;
     color: var(--accent-primary);
     font-weight: 700;
@@ -342,19 +504,18 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 
 /* --- PORTFOLIO PAGE --- */
 .portfolio-main { padding-bottom: 2rem; }
-/* Applied to all portfolio grids now */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  max-width: 1100px;
-  margin-left: auto; /* Keep auto left/right */
-  margin-right: auto; /* Keep auto left/right */
-  margin-top: 0; /* Keep top margin 0 */
-  margin-bottom: 2rem; /* ADD THIS - Adjust value as needed (e.g., 1.5rem, 2.5rem) */
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 2rem;
   text-align: left;
 }
-.portfolio-grid p { /* Style for potential placeholder text if grid is empty */
+.portfolio-grid p {
   color: var(--text-secondary);
   text-align: center;
   grid-column: 1 / -1;
@@ -365,7 +526,6 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  /* Subtle Accent Gradient - Angled */
   background-image: linear-gradient(160deg, var(--module-bg) 0%, var(--page-gradient-cinnamon) 325%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -377,7 +537,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
   cursor: pointer;
   opacity: 0;
   transform: translateY(20px);
-  min-height: 280px; /* Ensure cards have some height */
+  min-height: 280px;
 }
 .portfolio-item-card.visible { opacity: 1; transform: translateY(0); }
 .portfolio-item-card:hover {
@@ -385,7 +545,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     transform: translateY(-5px) scale(1.02);
 }
 .portfolio-item-card h3 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.3; font-weight: 700; text-align: center; }
-.portfolio-item-card h3 i, .portfolio-item-card h3 em { font-style: normal; } /* Keep titles clean */
+.portfolio-item-card h3 i, .portfolio-item-card h3 em { font-style: normal; }
 .portfolio-item-card .brief { font-size: 0.9rem; color: var(--text-primary); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1; text-align: center; }
 .portfolio-item-card .view-button { display: inline-block; padding: 0.5rem 1rem; background-color: rgba(255, 253, 208, 0.1); color: var(--accent-primary); border: 1px solid rgba(255, 253, 208, 0.3); border-radius: 20px; text-align: center; font-weight: 600; font-size: 0.8rem; text-decoration: none; margin-top: auto; align-self: center; transition: all 0.2s ease-out; }
 .portfolio-item-card:hover .view-button { background-color: var(--accent-primary); color: var(--base-bg); border-color: var(--accent-primary); }
@@ -397,17 +557,11 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 }
 .contact-page-wrapper { padding-top: 0; display: flex; justify-content: center; }
 .contact-column#contact-card { min-height: auto; }
-.contact-column h2 { border-bottom: none; padding-bottom: 8px; }
-.contact-page-wrapper .contact-pitch p { font-size: 1.1rem; line-height: 1.5; }
-.contact-pitch-subtext .contact-hard-word b {
-     display: inline-block;
-     transition: transform 0.2s ease-out;
-     transform: scale(1);
-}
+
 
 /* --- EXAMPLE/CARD STYLES (Homepage - Refactored) --- */
 #examples { padding: 3rem 1rem; }
-.examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+.examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1600px; margin: 0 auto; }
 .example-section { padding: 0; position: relative; overflow: hidden; border-radius: var(--card-border-radius); background-color: var(--glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: var(--card-border-width) solid var(--border-neutral); box-shadow: var(--card-shadow); transition-property: opacity, box-shadow, transform; transition-duration: var(--visibility-fade-duration), var(--card-hover-duration), var(--card-hover-duration); transition-timing-function: ease-out; opacity: 0; display: flex; flex-direction: column; min-height: 500px; transform: translateY(20px); }
 .example-section.visible { opacity: 1; transform: translateY(0); }
 .example-section:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-5px) scale(1.01); }
@@ -444,8 +598,8 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 
 /* --- NEXT STEPS CARDS (Homepage) --- */
 #next-steps { padding: 1rem 1rem 3rem 1rem; }
-.two-column-card-layout { display: flex; flex-wrap: wrap; gap: 2rem; max-width: 1100px; margin: 0 auto; align-items: stretch; justify-content: center; }
-.card-column { padding: 0; display: flex; flex-direction: column; position: relative; overflow: hidden; background-image: linear-gradient(160deg, var(--module-bg) 0%, var(--page-gradient-cinnamon) 200%); /* Added gradient */ backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--border-neutral); border-radius: var(--card-border-radius); box-shadow: var(--card-shadow); transition-property: opacity, box-shadow, transform; transition-duration: var(--visibility-fade-duration), var(--card-hover-duration), var(--card-hover-duration); transition-timing-function: ease-out; opacity: 0; transform: translateY(20px); }
+.two-column-card-layout { display: flex; flex-wrap: wrap; gap: 2rem; max-width: 1600px; margin: 0 auto; align-items: stretch; justify-content: center; }
+.card-column { padding: 0; display: flex; flex-direction: column; position: relative; overflow: hidden; background-color: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-neutral); border-radius: var(--card-border-radius); box-shadow: var(--card-shadow); transition-property: opacity, box-shadow, transform; transition-duration: var(--visibility-fade-duration), var(--card-hover-duration), var(--card-hover-duration); transition-timing-function: ease-out; opacity: 0; transform: translateY(20px); }
 .two-column-card-layout .card-column:not(.contact-column) { flex: 1 1 400px; min-width: 300px; min-height: 400px; }
 .card-column.visible { opacity: 1; transform: translateY(0); }
 .card-column:hover {
@@ -464,11 +618,6 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 /* Contact Card Styles (Homepage/Contact Page) */
 .contact-column { justify-content: space-between; }
 .contact-column .cta-container { text-align: center; margin-top: 3rem; flex-shrink: 0; padding-bottom: 0; padding-top: 1rem; }
-/* Add spacing between paragraphs in the contact card content */
-.contact-column .card-inner-content p {
-    margin-bottom: 1.5em;
-	text-align: center/* Adjust this value as needed (e.g., 1em, 2em) */
-}
 
 
 /* --- MODAL STYLES --- */
@@ -485,14 +634,13 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 .modal-title i, .modal-title em { font-style: normal; }
 .modal-body { font-size: 1rem; line-height: 1.7; color: var(--text-primary); text-align: left; }
 
-/* Styles for Modal Headings (Brief, Final Output, etc.) - UPDATED */
+/* Styles for Modal Headings */
 .modal-body h4, .modal-body h5 {
-    /* REMOVED margin-top: 1.5em; */
     margin-bottom: 1.5em;
     line-height: 1.4;
 }
 .modal-body h4:first-of-type, .modal-body h5:first-of-type {
-    margin-top: 0; /* Keep this - prevents margin if heading is first in modal */
+    margin-top: 0;
 }
 .modal-heading-underline {
     display: inline-block;
@@ -507,27 +655,21 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 .modal-body h4 + div:not(.original-notes), .modal-body h5 + div:not(.original-notes) {
     margin-top: 0;
 }
-/* Ensure paragraphs not directly after a heading still have space */
 .modal-body p + p {
     margin-top: 1em;
 }
 
-/* We want the wrapper itself to have no default top margin */
 .modal-body .final-output-wrapper {
     margin-top: 0;
 }
 
 /* === NEW RULES for Modal Heading Spacing === */
-/* Add space ABOVE the output wrapper if it follows the Brief's paragraph */
 .modal-body > p + .final-output-wrapper {
     margin-top: 1.5em;
 }
-/* Add space ABOVE the output H4 if it was added by JS (follows Brief's paragraph) */
 .modal-body > p + h4 {
      margin-top: 1.5em;
 }
-/* Remove margin-top from h4/h5 *inside* the output wrapper IF they are the first element,
-   as the wrapper now has the margin above it in the rule above. */
 .final-output-wrapper > h4:first-child,
 .final-output-wrapper > h5:first-child {
     margin-top: 0;
@@ -543,14 +685,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     margin-bottom: 1em;
     margin-left: 0;
 }
-/* Specific list styling inside final-output-wrapper if needed */
-.modal-body .final-output-wrapper ul,
-.modal-body .final-output-wrapper ol,
-.modal-body .analysis-human-wrapper ul,
-.modal-body .analysis-human-wrapper ol {
-    /* Keep styles from before or adjust */
-}
-.modal-body li { /* General list item style */
+.modal-body li {
     margin-bottom: 0.75em;
     line-height: 1.7;
     color: var(--text-primary);
@@ -572,9 +707,8 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin-top: 1em;
-    margin-bottom: 1.5em; /* Space AFTER original notes */
+    margin-bottom: 1.5em;
 }
-/* Styling for H5 inside original notes (Before/After) */
 .modal-body .original-notes h5 {
     color: var(--accent-primary);
     font-weight: bold;
@@ -587,7 +721,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 }
 .modal-body .original-notes p {
     margin-bottom: 0.75em;
-    color: var(--text-secondary); /* Ensure paragraph text color */
+    color: var(--text-secondary);
 }
 
 .modal-body .original-notes > *:last-child { margin-bottom: 0; }
@@ -595,14 +729,12 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 
 /* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 992px) {
-    body { padding-top: 60px; } /* Ensure padding matches header height */
+    body { padding-top: 60px; }
     .header-container { flex-direction: column; align-items: flex-start; }
     .main-navigation { margin-top: 0.5rem; }
     .main-navigation ul { gap: 1rem; }
     .hero, .about-card-wrapper, .portfolio-wrapper { margin: 2rem auto 0 auto; }
 
-    .hero-content h1 { font-size: clamp(2rem, 6vw, 2.8rem); }
-    .hero p.hero-sub-bold { font-size: clamp(1rem, 2.5vw, 1.15rem); }
     .two-column-card-layout { flex-direction: column; gap: 1.5rem; }
     .card-column { flex-basis: auto !important; max-width: 90%; margin-left:auto; margin-right:auto; }
     .portfolio-headline h2, .next-steps-headline h2 { font-size: clamp(1.5rem, 3.8vw, 2.1rem); }
@@ -611,7 +743,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     #next-steps { padding: 2.5rem 1rem; }
     .contact-page-wrapper .contact-column { max-width: 80%; }
     .contact-main { padding-top: 2.5rem; }
-    .portfolio-grid { gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 0; /* Let title margin handle spacing */ }
+    .portfolio-grid { gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 0; }
 
     .portfolio-wrapper .portfolio-inner-content { padding: clamp(2rem, 6vh, 3.5rem) 1rem; }
     .hero:not(.about-card-wrapper):not(.portfolio-wrapper) > .hero-inner-content { padding: clamp(2rem, 6vh, 3.5rem) 1rem; }
@@ -620,7 +752,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
 }
 
 @media (max-width: 768px) {
-    body { padding-top: 80px; } /* Adjusted for potentially taller header */
+    body { padding-top: 80px; }
     .header-container { align-items: center; }
     .site-logo { margin-bottom: 0.5rem; text-align: center; width: 100%;}
     .main-navigation { width: 100%; }
@@ -636,10 +768,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     .portfolio-wrapper .portfolio-inner-content { padding: 2.5rem 1rem; }
 
 
-    .hero-svg-logo { max-width: 350px; margin-bottom: 1.5rem;}
-    .hero-content { text-align: center; }
-    .hero h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
-    .hero p.hero-sub-bold { font-size: clamp(1rem, 3vw, 1.1rem); max-width: 90%; margin-left: auto; margin-right: auto; }
+    .hero-svg-logo { max-width: 440px; margin-bottom: 1.5rem;}
 
     .about-card-content h1.about-main-title { font-size: clamp(1.6rem, 5vw, 2rem); margin-bottom: 2rem !important; }
     .about-card-content h2 { font-size: 1.4rem; margin-top: 2em; margin-bottom: 1.2em;}
@@ -648,7 +777,7 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     a.cta-button { padding: 0.7rem 1.2rem; font-size: 0.9rem;}
     .portfolio-headline, .next-steps-headline { padding-top: 0; margin-top: 0; }
     .portfolio-headline h2, .next-steps-headline h2 { font-size: clamp(1.4rem, 5vw, 1.8rem); white-space: normal; margin-bottom: 1rem; }
-    .portfolio-section-title, /* Updated */
+    .portfolio-section-title,
     .section-title-outside
     { font-size: clamp(1.3rem, 4.5vw, 1.6rem); white-space: normal;}
 
@@ -670,19 +799,19 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     .contact-page-wrapper { padding-top: 0; }
     .contact-main { padding-top: 2rem; }
     .contact-page-wrapper .card-column { margin: 0 0.5rem; max-width: 95%; flex-basis: auto !important; }
-    .contact-column h2 { font-size: clamp(1rem, 3.5vw, 1.2rem); }
-    .contact-column .contact-pitch p { font-size: 1rem; }
-    .contact-pitch-subtext { margin-top: 1em; }
+    /* .contact-column h2 { font-size: clamp(1rem, 3.5vw, 1.2rem); } Removed old h2 */
+    .contact-headline { font-size: clamp(1.2rem, 3.8vw, 1.5rem); } /* Adjust new headline size */
+    .contact-body p { font-size: 1rem; } /* Adjust new body size */
+    /* .contact-pitch-subtext { margin-top: 1em; } Removed old */
 
-    #portfolio-intro { margin-top: 0.5rem; margin-bottom: 0; } /* Reduced bottom margin */
+    #portfolio-intro { margin-top: 0.5rem; margin-bottom: 0; }
     #portfolio-intro p { font-size: 1rem; }
 
     .portfolio-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 0; }
 
     .portfolio-item-card { min-height: auto; padding: 1rem; }
-    /* Ensure portfolio cards still have height */
     .portfolio-item-card {
-        min-height: auto; /* Default auto height */
+        min-height: auto;
     }
 
     .portfolio-item-card h3 { font-size: 1rem; }
@@ -692,129 +821,531 @@ a.cta-button:hover, button.cta-button:hover { background-color: rgba(36, 39, 51,
     .modal-content { max-width: 95%; width: 95%; padding: 1.5rem; }
     .modal-title { font-size: 1.3rem; }
     .modal-body { font-size: 0.9rem; }
-    .modal-body h4 { font-size: 1rem; } /* Reset from prev attempt */
-    .modal-body h5 { font-size: 1rem; } /* Reset from prev attempt */
+    .modal-body h4 { font-size: 1rem; }
+    .modal-body h5 { font-size: 1rem; }
     .modal-body ul,
     .modal-body ol {
-        padding-left: 0.5em; /* Further adjust list padding */
+        padding-left: 0.5em;
     }
     .modal-body li {
-         padding-left: 0.5em; /* Further adjust list item text padding */
+         padding-left: 0.5em;
     }
 }
 
 
-/* === NEW STYLES START HERE === */
+/* Target the specific hero block content */
 
-/* --- Portfolio Sub-Navigation Menu --- */
+.hero-content-block .strategy-paragraph,
+.hero-content-block .intro-paragraphs,
+.hero-content-block .final-lines {
+  text-align: left; /* Align text within these specific divs to the left */
+}
+
+/* Ensure paragraphs themselves don't have excessive left padding if added elsewhere */
+.hero-content-block .strategy-paragraph {
+    padding-left: 0; /* Reset if needed */
+    /* ... other existing styles ... */
+}
+.hero-content-block .intro-paragraphs {
+    padding-left: 0; /* Reset if needed */
+     /* ... other existing styles ... */
+}
+ .hero-content-block .final-lines {
+    padding-left: 0; /* Reset if needed */
+     /* ... other existing styles ... */
+}
+.hero-content-block {
+  max-width: 480px; /* Adjust as needed */
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Left align H1 */
+.hero-content-block h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+}
+
+/* Style the sub-tagline */
+.hero-content-block .sub-tagline {
+  font-weight: 300;
+  font-size: 1.3rem;
+  display: block;
+  margin-top: 0.75em;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Style for specific words in hero */
+.hero-hover-highlight {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--accent-primary); /* Yellow */
+  transition: transform 0.2s ease-out;
+  margin-left: 0.15em;
+  margin-right: 0.15em
+}
+
+
+/* Spacing and styling for paragraph groups */
+.hero-content-block .strategy-paragraph,
+.hero-content-block .intro-paragraphs {
+  padding-left: 0;
+  max-width: 100%;
+}
+
+.hero-content-block .strategy-paragraph {
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.hero-content-block .intro-paragraphs p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.2em;
+  color: var(--text-primary);
+}
+
+/* Styling for the final standout lines */
+.hero-content-block .final-lines {
+  margin-top: 3.5rem;
+  margin-bottom: 2.5rem;
+  padding-left: 0;
+  max-width: 100%;
+}
+
+.hero-content-block .standout-final-line {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 0.6em;
+}
+
+/* Style for final words in hero */
+.final-word-highlight {
+    display: inline-block;
+    font-weight: 700;
+	color: var(--accent-primary); /* Yellow */
+	transition: transform 0.2 ease-out;
+	margin-left: 0.15em;
+	margin-right: 0.15em;
+}
+
+/* --- START Contact Card & Title Styles --- */
+
+/* Base Style for Contact Card - Simplified Entry Animation */
+.contact-column#contact-card {
+    /* Layout & Sizing */
+    flex-basis: auto;
+    flex-grow: 1;
+    max-width: 1600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .015rem;    /* Matches other page wrappers */
+    margin-bottom: 2rem; /* Matches other page wrappers */
+    /* Appearance */
+    position: relative;
+    overflow: hidden;
+	background-color: rgba(24, 26, 35, 0);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-neutral);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    /* Entry Animation & Transitions */
+    opacity: 0;
+    transform: scale(1); /* Base scale - no translate */
+    transition: opacity var(--visibility-fade-duration) ease-out,
+                transform var(--card-hover-duration) ease-out,
+                box-shadow var(--card-hover-duration) ease-out;
+    /* Flex properties */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Visible State - Only Opacity */
+.card-column#contact-card.visible {
+    opacity: 1;
+    /* No transform needed here anymore */
+}
+
+/* Specific Hover Rule for Contact Card - Apply Shadow & Transform */
+.contact-column#contact-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    /* Apply pop effect here - should work now */
+    transform: translateY(-5px) scale(1.005); /* Use adjusted scale */
+}
+
+
+/* Inner Content Padding */
+.contact-column#contact-card .card-inner-content {
+   padding: clamp(3rem, 8vh, 5rem) clamp(1.5rem, 5vw, 4rem); /* Adjusted padding */
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   /* No transition needed here */
+}
+
+/* Base style for the H2 container */
+.contact-page-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: default;
+    /* font-style: normal; /* Let spans inherit/define */
+    /* No transition needed here */
+}
+
+/* Base style for "Your Story Starts " span */
+.contact-title-base {
+    display: inline-block;
+    color: var(--text-primary); /* White */
+    transform: scale(1); /* Base state */
+    transition: transform var(--contact-word-pop-duration, 0.2s) ease-out,
+                font-style var(--title-hover-duration, 0.3s) ease-out;
+}
+
+/* Base style for "Here" span */
+.contact-title-highlight {
+    display: inline-block;
+    color: var(--accent-primary); /* Yellow */
+    transform: scale(1); /* Base state */
+    transition: transform var(--contact-word-pop-duration, 0.2s) ease-out,
+                font-style var(--title-hover-duration, 0.3s) ease-out;
+    margin-left: 0.3em; /* Spacing */
+}
+
+/* Hover Rules for Title Spans */
+.contact-column:hover .contact-page-title .contact-title-base {
+    transform: scale(1); /* Explicitly no scale */
+    
+}
+
+.contact-column:hover .contact-page-title .contact-title-highlight {
+    transform: scale(1.1); /* Scale "Here" */
+    font-style: italic;    /* Italic "Here" */
+    color: var(--accent-primary); /* Keep yellow */
+}
+
+/* Underline effects */
+.contact-page-title::before,
+.contact-page-title::after {
+     content: '';
+     position: absolute;
+     width: 100%;
+     height: 2px;
+     background-color: var(--accent-primary);
+     transform: scaleX(0);
+     transition: transform var(--title-underline-duration) ease-out;
+ }
+.contact-page-title::before { top: 0; left: 0; transform-origin: left; }
+.contact-page-title::after { bottom: 0; left: 0; transform-origin: right; }
+
+.contact-column:hover .contact-page-title::before,
+.contact-column:hover .contact-page-title::after {
+    transform: scaleX(1); /* Show underlines */
+}
+
+
+/* Secondary Headlines */
+.contact-headline-block {
+  margin-top: 0; /* Reset from previous */
+  margin-bottom: 1.5rem; /* Space after headlines */
+  text-align: center;
+}
+
+.contact-headline {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 700; /* Restored bold */
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+}
+
+/* Contact Body Text & Highlights */
+.contact-body {
+  margin-top: 2.5rem;   /* Breathing room */
+  margin-bottom: 3rem;  /* Breathing room */
+  text-align: center;
+}
+
+.contact-body p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2em; /* Breathing room */
+  color: var(--text-primary);
+}
+
+.contact-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Base Styles for Highlights */
+.contact-highlight-yellow {
+  color: var(--accent-primary);
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.contact-highlight-both {
+  color: var(--accent-primary);
+  font-style: italic;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.contact-highlight-main {
+  color: var(--accent-primary);
+  font-style: italic;
+  font-weight: 700;
+  display: inline-block;
+  transition: transform 0.2s ease-out, margin 0.2s ease-out;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+/* Hover Styles for Highlights */
+.contact-column:hover .contact-highlight-yellow,
+.contact-column:hover .contact-highlight-both {
+    transform: scale(1.1);
+}
+
+.contact-column:hover .contact-highlight-main {
+    transform: scale(1.1);
+    margin-left: 0.4em;  /* Horizontal breathing room */
+    margin-right: 0.4em; /* Horizontal breathing room */
+}
+
+/* --- END Contact Card & Title Styles --- */
+
+/* Keep existing card pop effect */
+.contact-column:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-5px) scale(1.01); /* Existing pop effect */
+}
+
+/* Adjustments for existing contact elements if needed */
+.contact-column#contact-card .contact-headline-block {
+    margin-top: 0; /* Ensure no extra top margin if title is added */
+    margin-bottom: 1.5rem; /* Slightly reduce space after headlines */
+}
+
+.contact-headline-block {
+  margin-bottom: 2.5rem; /* Space after headline block */
+  text-align: center; /* Center the headline paragraphs */
+}
+
+.contact-headline {
+  font-size: clamp(1.4rem, 4vw, 1.8rem); /* Adjust size as needed */
+  font-weight: 200;
+  line-height: 1.4;
+  color: var(--text-primary); /* Base color for headline text */
+  margin-bottom: 0.5em; /* Space between headline lines */
+}
+
+.contact-body {
+  margin-top: 1.5rem; /* Reduced space before body */
+  margin-bottom: 2rem; /* Space after body */
+  text-align: center;
+}
+
+.contact-body p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5em; /* Space between body paragraphs */
+  color: var(--text-primary); /* Use main text white color */
+}
+
+
+.contact-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Style for 'Write' and 'Tech' (Yellow only) */
+.contact-highlight-yellow {
+  color: var(--accent-primary);
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+/* Style for 'Both' (Yellow, Italic) */
+.contact-highlight-both {
+  color: var(--accent-primary);
+  font-style: italic;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+/* Style for 'product', 'traction', 'vision', 'hard' (Yellow, Italic, Bold) */
+.contact-highlight-main {
+  color: var(--accent-primary);
+  font-style: italic;
+  font-weight: 700;
+  display: inline-block;
+  transition: transform 0.2s ease-out,
+              margin 0.2s ease-out;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+/* Pop effect on contact card hover */
+.contact-column:hover .contact-highlight-yellow,
+.contact-column:hover .contact-highlight-both,
+.contact-column:hover .contact-highlight-main {
+	transform: scale(1.1); /* Make words slightly larger */
+	margin-left: 0.2em;
+	margin-right: 0.2em; }
+.contact-column:hover .contact-page-title .contact-title-highlight {
+	transform: scale(1.1);	
+}
+
+
+/* Optional: Adjust overall contact card padding/width if needed */
+.contact-column#contact-card .card-inner-content {
+   padding: clamp(2rem, 6vh, 4rem) clamp(1rem, 4vw, 2.5rem); /* Adjust padding */
+}
+
+/* Reset margin for the headline block within the card */
+.contact-column#contact-card .contact-headline-block {
+    margin-top: 0;
+}
+/* --- End Contact Page Styles --- */
+
+/* === PORTFOLIO SUBNAV === */
+
+/* Subnav container - Enable Scrolling */
 .portfolio-subnav {
   width: 100%;
-  max-width: 1100px; /* Match container width */
-  margin: 2rem auto 2rem auto; /* Space above and below the nav */
-  /* --- Start Added Styles --- */
-  padding: 0.75rem 1rem; /* Added padding top/bottom and left/right */
-  border-radius: 5px; /* Optional: round the corners of the bar */
-  background-image: linear-gradient(160deg, var(--module-bg) 0%, var(--page-gradient-cinnamon) 200%); /* Added gradient */
-  border: 1px solid var(--border-neutral); /* Optional: Add border like cards */
-  transition: transform var(--card-hover-duration) ease-out,
-			  box-shadow var(--card-shadow); /* Optional: Add shadow like cards */
+  max-width: 1600px;
+  margin: 2rem auto 1rem auto; /* Keep vertical spacing */
+  padding: 0.5rem 0;
+  border: none;
+  background: none;
+  overflow-y: hidden;
   display: flex;
-  justify-content: center; /* Center the nav links container */
+  justify-content: center;  
 }
-
+ 
+/* Subnav list - Inline Flex row, no wrap */
 .portfolio-subnav ul {
   list-style: none;
-  padding: 0;
+  padding: 0 1rem; /* Padding at start/end */
   margin: 0;
-  display: flex;
-  flex-wrap: wrap; /* Allow links to wrap on smaller screens */
-  justify-content: center; /* Center links if they wrap */
-  gap: 0.75rem; /* Spacing between links */
-  border-bottom: none; /* Remove line from ul, nav is between HRs now */
-  padding-bottom: 0; /* Remove padding associated with border */
+  display: inline-flex; /* Allows ul width to fit content */
+  flex-wrap: nowrap;   /* Force single line */
+  gap: 0.75rem;         /* Gap between items */
 }
 
+/* Subnav list item - Prevent shrinking */
 .portfolio-subnav li {
+  flex-shrink: 0; /* Prevent shrinking */
   margin: 0;
   padding: 0;
+  /* display: flex is not needed here */
 }
 
+/* Subnav link/button - Fixed Width, FIXED Height, Centered Text */
 .portfolio-subnav a {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  color: var(--text-secondary); /* Start with secondary text color */
+  display: flex;
+  align-items: center;     /* Vertical center */
+  justify-content: center; /* Horizontal center */
+  text-align: center;      /* Center wrapped text lines */
+  flex-shrink: 0;          /* Prevent shrinking */
+  box-sizing: border-box;  /* Include padding in size */
+
+  width: 200px;            /* << ADJUST Fixed width */
+  /* min-height: 4em; */   /* Replace min-height */
+  height: 4.5em;           /* << SET Explicit Height - Adjust value! */
+  padding: 0.6rem 0.5rem;  /* Keep adjusted padding */
+  border-radius: 20px;     /* Keep pill shape */
+  font-size: 0.9rem;      /* Keep original font size */
+  line-height: 1.3;        /* Keep adjusted line height */
+
+  /* Keep other appearance styles */
+  color: var(--accent-primary);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
-  border-radius: 20px; /* Rounded corners like buttons */
-  /* --- Start Border Update --- */
-  border-width: var(--card-border-width); /* Use variable (1px) */
+  border-width: var(--card-border-width);
   border-style: solid;
-  border-color: var(--card-border-color-light) var(--card-border-color-dark) var(--card-border-color-dark) var(--card-border-color-light); /* Use subtle inset colors */
-  /* --- End Border Update --- */
-  transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out;
-  background-color: rgba(24, 26, 35, 0.3); /* Subtle background */
+  border-color: var(--card-border-color-light) var(--card-border-color-dark) var(--card-border-color-dark) var(--card-border-color-light);
+  transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out;
+  background-color: rgba(255, 253, 208, 0.1);
 }
 
+/* Keep hover effect */
 .portfolio-subnav a:hover {
-  color: var(--accent-primary); /* Highlight color on hover */
-  background-color: rgba(255, 253, 208, 0.1); /* Subtle yellow glow */
-  border-color: rgba(255, 253, 208, 0.2); /* Faint border on hover */
+  background-color: var(--accent-primary);
+  color: var(--base-bg);
+  border-color: var(--accent-primary);
+  transform: scale(1.05);
 }
+
+/* Keep Dividers hidden */
+#portfolio-intro + hr.section-divider,
+.portfolio-subnav + hr.section-divider
+{
+  display: none;
+}
+
+/* ===== END Final Uniform Horizontal Scroll Subnav ===== */
+
+/* HR after subnav - Keep reduced margin */
+.portfolio-subnav + hr.section-divider {
+  margin-top: 0;
+  margin-bottom: 1rem; /* Keep reduced margin */
+}
+
+/* ===== END Horizontal Scroll Subnav Section ===== */
 
 /* --- Spacing Adjustments for Portfolio Structure --- */
+#portfolio-intro + hr.section-divider { margin-top: 2rem; margin-bottom: 0; }
+.portfolio-subnav + hr.section-divider { margin-top: 0; margin-bottom: .5rem; }
+.portfolio-inner-content > section { padding-top: 2.0rem; }
+.portfolio-grid + hr.section-divider { margin-top: 3rem; margin-bottom: 2.5rem; }
 
-/* Divider directly BEFORE the sub-nav (assuming it follows intro) */
-#portfolio-intro + hr.section-divider {
-  margin-top: 2rem; /* Space after intro text */
-  margin-bottom: 0; /* No space below this divider */
-}
-
-/* Divider directly AFTER the sub-nav */
-.portfolio-subnav + hr.section-divider {
-  margin-top: 0; /* No space above this divider */
-  margin-bottom: 2.5rem; /* Space below divider before first title */
-}
-
-/* Add padding ABOVE the section containing the title */
-.portfolio-inner-content > section {
-    padding-top: 2.0rem; /* Adjust this value (e.g., 1rem, 2rem) */
-}
-
-/* Divider AFTER a portfolio grid, BEFORE the next section title */
-.portfolio-grid + hr.section-divider {
-   margin-top: 3rem; /* Space after grid content */
-   margin-bottom: 2.5rem; /* Space before next title */
-}
-
-/* --- Responsive Adjustments for Sub-Nav & Spacing --- */
+/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
-  .portfolio-subnav {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .portfolio-subnav ul {
-    gap: 0.5rem; /* Slightly reduce gap */
-  }
-  .portfolio-subnav a {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
+    .portfolio-subnav { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .portfolio-subnav ul { gap: 0.5rem; }
+    .portfolio-subnav a { font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+    #portfolio-intro + hr.section-divider { margin-top: 1.5rem; }
+    .portfolio-subnav + hr.section-divider { margin-bottom: 2rem; }
+    .portfolio-grid + hr.section-divider { margin-top: 2.5rem; margin-bottom: 2rem; }
+    .portfolio-wrapper .portfolio-section-title { margin-top: 2rem; margin-bottom: 1.5rem; }
 
-  /* Adjust divider spacing on smaller screens */
-  #portfolio-intro + hr.section-divider {
-    margin-top: 1.5rem;
-  }
-  .portfolio-subnav + hr.section-divider {
-    margin-bottom: 2rem;
-  }
-   .portfolio-grid + hr.section-divider {
-    margin-top: 2.5rem;
-    margin-bottom: 2rem;
-  }
-   /* Replace the previous rule with this more specific one */
-   .portfolio-wrapper .portfolio-section-title {
-    margin-top: 2rem; /* START HERE - Adjust value as needed (e.g., 1.5rem, 2.5rem) */
-    margin-bottom: 1.5rem; /* Adjust if needed (original was 2.5rem, you tried 1.25rem) */
+    /* Responsive Hero Block */
+    .hero-content-block { max-width: 95%; padding: 0 0.5rem; }
+    .hero-content-block h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .hero-content-block .sub-tagline { font-size: 1.1rem; }
+    .hero-content-block .strategy-paragraph { font-size: 1rem; }
+    .hero-content-block .intro-paragraphs p { font-size: 0.9rem; }
+    .hero-content-block .standout-final-line { font-size: 1rem; }
+
+     /* Responsive Contact Block */
+    .contact-headline { font-size: clamp(1.2rem, 3.8vw, 1.5rem); }
+    .contact-body p { font-size: 1rem; }
 }
-}
+
+/* --- END PORTFOLIO SUBNAV --- */
