@@ -371,7 +371,7 @@ a.cta-button, button.cta-button {
   text-decoration: none !important; /* Keep */
   font-weight: 600; /* Copied from subnav */
   font-family: inherit; /* Keep */
-  font-size: 1.5rem; /* Copied from subnav */
+  font-size: 1.25rem; /* Copied from subnav */
   line-height: 1.4; /* Keep */
   transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out;
   cursor: pointer; /* Keep */
@@ -798,7 +798,7 @@ a.cta-button:hover, button.cta-button:hover {
     .contact-main { padding-top: 2rem; }
     .contact-page-wrapper .card-column { margin: 0 0.5rem; max-width: 95%; flex-basis: auto !important; }
     .contact-headline { font-size: clamp(1.2rem, 3.8vw, 1.5rem); } /* Adjust new headline size */
-    .contact-body p { font-size: 1rem; } /* Adjust new body size */
+    .contact-body p { font-size: 1.5rem; } /* Adjust new body size */
     
 
     #portfolio-intro { margin-top: 0.5rem; margin-bottom: 0; }
@@ -1085,14 +1085,16 @@ a.cta-button:hover, button.cta-button:hover {
 /* Contact Body Text & Highlights */
 .contact-body {
   margin-top: .5rem;   /* Breathing room */
-  margin-bottom: .5rem;  /* Breathing room */
+  margin-bottom: 0rem;  /* Breathing room */
   text-align: center;
+  font-size: 1.5rem;
+
 }
 
 .contact-body p {
-  font-size: 1.1rem;
+  font-size: 5rem;
   line-height: 1.6;
-  margin-bottom: .5em; /* Breathing room */
+  margin-bottom: 0em; /* Breathing room */
   color: var(--text-primary);
 }
 
@@ -1162,14 +1164,14 @@ a.cta-button:hover, button.cta-button:hover {
 
 .contact-body {
   margin-top: .5rem; /* Reduced space before body */
-  margin-bottom: .5rem; /* Space after body */
+  margin-bottom: 0rem; /* Space after body */
   text-align: center;
 }
 
 .contact-body p {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   line-height: 1.6;
-  margin-bottom: 1.5em; /* Space between body paragraphs */
+  margin-bottom: 1em; /* Space between body paragraphs */
   color: var(--text-primary); /* Use main text white color */
 }
 
@@ -1340,7 +1342,7 @@ a.cta-button:hover, button.cta-button:hover {
 
      /* Responsive Contact Block */
     .contact-headline { font-size: clamp(1.2rem, 3.8vw, 1.5rem); }
-    .contact-body p { font-size: 1rem; }
+    .contact-body p { font-size: 1.5rem; }
 }
 
 /* --- END PORTFOLIO SUBNAV --- */
